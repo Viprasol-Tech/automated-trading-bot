@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "automated-trading-bot"
-version = "0.1.0"
+version = "0.2.0"
 description = "Automated trading bot template — config-driven, scheduled, with risk and backtest — by Viprasol Tech."
 readme = "README.md"
 requires-python = ">=3.11"
