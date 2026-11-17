@@ -74,14 +74,14 @@ from automated_trading_bot.backtest import run_backtest
 # A validated, JSON-serialisable profile with risk guardrails.
 config = BotConfig(
     symbol="BTC/USDT",
-    strategy="breakout",      # momentum_ma | mean_reversion | breakout
+    strategy="breakout",  # momentum_ma | mean_reversion | breakout
     slow=30,
-    risk_fraction=0.2,        # max 20% of equity per position
-    max_positions=1,          # one concurrent position
-    daily_loss_limit=0.05,    # halt after a 5% daily drawdown
+    risk_fraction=0.2,  # max 20% of equity per position
+    max_positions=1,  # one concurrent position
+    daily_loss_limit=0.05,  # halt after a 5% daily drawdown
 )
 
-prices = [100.0 + i for i in range(240)]   # your OHLC closes go here
+prices = [100.0 + i for i in range(240)]  # your OHLC closes go here
 result = run_backtest(config, prices)
 
 print(result.report())
@@ -104,11 +104,13 @@ from automated_trading_bot.runner import BotRunner
 from automated_trading_bot.scheduler import IntervalScheduler
 
 runner = BotRunner(config)
-scheduler = IntervalScheduler(interval=1.0)   # one tick per second
+scheduler = IntervalScheduler(interval=1.0)  # one tick per second
+
 
 def tick(i: int) -> bool:
     runner.on_bar(prices[i])
-    return not runner.halted   # stop early if the daily-loss limit fires
+    return not runner.halted  # stop early if the daily-loss limit fires
+
 
 scheduler.run(tick, max_ticks=len(prices))
 ```
